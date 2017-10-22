@@ -1,7 +1,6 @@
 package blockchain.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -32,7 +31,7 @@ public class BlockChainService {
 	private ObjectMapper mapper = new ObjectMapper();
 
 	private volatile List<Transaction> currentTransactions;
-	private volatile List<Block> chain = new ArrayList<>();
+	private volatile List<Block> chain;
 	private final String myNodeId = UUID.randomUUID().toString();
 	
 	@Autowired
