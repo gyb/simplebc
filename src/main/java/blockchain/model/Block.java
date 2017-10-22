@@ -5,37 +5,33 @@ import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import blockchain.service.BlockChainService;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Block {
 
+	@JsonProperty
 	private int id;
+	@JsonProperty
 	private long timestamp;
+	@JsonProperty
 	private List<Transaction> transactions;
+	@JsonProperty
 	private int proof;
+	@JsonProperty
 	private String previousHash;
 	
-	public Block(int id, List<Transaction> transactions, int proof, String previousHash, BlockChainService service) {
+	public Block() {}
+
+	public Block(int id, List<Transaction> transactions, int proof, String previousHash) {
 		this.id = id;
 		this.timestamp = System.currentTimeMillis();
 		this.proof = proof;
 		this.transactions = new ArrayList<>(transactions);
 		this.previousHash = previousHash;
-		if (this.previousHash == null) {
-			this.previousHash = service.lastBlock().hash();
-		}
 	}
 	
 	public int getId() {
 		return this.id;
-	}
-	
-	public long getTimestamp() {
-		return timestamp;
-	}
-
-	public List<Transaction> getTransactions() {
-		return transactions;
 	}
 
 	public int getProof() {
