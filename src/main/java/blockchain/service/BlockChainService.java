@@ -25,6 +25,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class BlockChainService {
 	public final static String BLOCKCHAIN_CHANNEL = "blockchain";
 	public final static String POW_PREFIX = "00000";
+	public final static String MINE_REWARD_ADDRESS = "0";
+	public final static int MINE_REWARD_AMOUNT = 1;
+
 	private final static Logger logger = LoggerFactory.getLogger(BlockChainService.class);
 
 	private StringRedisTemplate redisTemplate;
@@ -40,7 +43,7 @@ public class BlockChainService {
 		this.currentTransactions = new CopyOnWriteArrayList<>();
 		this.chain = new CopyOnWriteArrayList<>();
 		//create the genesis block
-		createBlock("1", 100);
+		createBlock(Block.GENESIS_HASH, Block.GENESIS_PROOF);
 	}
 	
 	private Block createBlock(String previousHash, int proof) {
@@ -57,7 +60,7 @@ public class BlockChainService {
 	
 	public Block mine() {
 		int proof = proofOfWork(lastBlock().getProof());
-		this.createTransaction(new Transaction("0", myNodeId, 1));
+		this.createTransaction(new Transaction(MINE_REWARD_ADDRESS, myNodeId, MINE_REWARD_AMOUNT));
 		Block newBlock = createBlock(lastBlock().hash(), proof);
 		logger.info("A new block was created!");
 		try {

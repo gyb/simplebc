@@ -9,6 +9,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Block {
 
+	public static final String GENESIS_HASH = "1";
+	public static final int GENESIS_PROOF = 100;
+
 	@JsonProperty
 	private int id;
 	@JsonProperty
