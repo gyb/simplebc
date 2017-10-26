@@ -2,6 +2,7 @@ package blockchain.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -25,11 +26,15 @@ public class Block {
 	
 	public Block() {}
 
-	public Block(int id, List<Transaction> transactions, int proof, String previousHash) {
+	public Block(int id, Queue<Transaction> transactions, int proof, String previousHash) {
 		this.id = id;
 		this.timestamp = System.currentTimeMillis();
 		this.proof = proof;
-		this.transactions = new ArrayList<>(transactions);
+		if (transactions != null) {
+			this.transactions = new ArrayList<>(transactions);
+		} else {
+			this.transactions = new ArrayList<>();
+		}
 		this.previousHash = previousHash;
 	}
 	

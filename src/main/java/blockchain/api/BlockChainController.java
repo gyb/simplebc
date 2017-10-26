@@ -29,6 +29,6 @@ public class BlockChainController {
 	
 	@RequestMapping("/chain")
 	public ChainResponse getChain() {
-		return new ChainResponse(service.chain());
+		return service.chain();
 	}
 }
